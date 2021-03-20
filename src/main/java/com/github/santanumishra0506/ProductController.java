@@ -16,18 +16,27 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 
-	@GetMapping (value="/allProduct", produces = MediaType.APPLICATION_JSON_VALUE)
+	//All Products search
+	@GetMapping (value="/allproduct", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Product> getAllProduct(){
 		return productService.getAllProductInfo();
 	}
 	
-	@GetMapping (value="/allProduct/{productName}", produces = MediaType.APPLICATION_JSON_VALUE)
+	//term search
+	@GetMapping (value="/fieldsearch/q={productName}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Product> getProductByName(@PathVariable String productName){
 		return productService.getProductsByName(productName);
 	}
+
+	//free text search with pagination
+	@GetMapping (value="/search/q={keyWord}/from={from}/size={size}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<Product> searchWithPagination(@PathVariable String keyWord,@PathVariable Integer from,@PathVariable Integer size){
+		return productService.searchProductsWithPagination(keyWord,from,size);
+	}
 	
-	@GetMapping (value="/searchproduct/{keyWord}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Product> searchProduct(@PathVariable String keyWord){
-		return productService.searchProducts(keyWord);
+	//auto suggestion
+	@GetMapping (value="/suggestions/q={term}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<String> getSuggestions(@PathVariable String term){
+		return productService.getSuggestionTerms(term);
 	}
 }

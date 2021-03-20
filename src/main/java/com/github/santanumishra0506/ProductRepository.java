@@ -11,6 +11,8 @@ public interface ProductRepository {
 
 	List<Product> findAllProductInfoFromElastic(String productName);
 
-	List<Product> searchProductsinPosts(String keyWord);
+	List<Product> searchProductsinPostswithPagination(String keyWord, Integer from, Integer size);
+
+	List<String> retrieveSuggestions(String term);
 
 }

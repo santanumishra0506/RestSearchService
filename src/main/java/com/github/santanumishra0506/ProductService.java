@@ -20,9 +20,15 @@ public class ProductService {
 		return productRepository.findAllProductInfoFromElastic(productName);
 	}
 
-	public List<Product> searchProducts(String keyWord) {
+
+	public List<Product> searchProductsWithPagination(String keyWord, Integer from, Integer size) {
 		// TODO Auto-generated method stub
-		return productRepository.searchProductsinPosts(keyWord);
+		return productRepository.searchProductsinPostswithPagination(keyWord, from, size);
+	}
+
+	public List<String> getSuggestionTerms(String term) {
+		// TODO Auto-generated method stub
+		return productRepository.retrieveSuggestions(term);
 	}
 
 	
